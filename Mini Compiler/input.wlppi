@@ -1,0 +1,218 @@
+tree* exprcheck (){
+	if (expr_storage.at(0)->tokens.expr_storage.at(0)t(0) == "ID"){
+		expr_storage.at(0)->type = findtype (expr_storage.at(0)->tokens.expr_storage.at(0)t(1));
+		return expr_storage.at(0);
+	}
+	else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(0) == "NUM"){
+		expr_storage.at(0)->type = "int";
+		return expr_storage.at(0);
+	}
+	else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(0) == "NULL"){
+		expr_storage.at(0)->type = "int*";
+		return expr_storage.at(0);
+	}
+	else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(0) == "fexpr_storage.at(0)ctor"){
+		if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "NUM"){
+			expr_storage.at(0)->type = "int";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "NULL"){
+			expr_storage.at(0)->type = "int*";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "ID"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(0));
+				return expr_storage.at(0);
+			}
+			else {
+				expr_storage.at(0)->type = expr_storage.at(0)->children.expr_storage.at(0)t(0)->type;
+				return expr_storage.at(0);
+			}
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "LPexpr_storage.at(0)REN"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(1)->type == ""){
+				exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(1));
+				return expr_storage.at(0);
+			}
+			else {
+				expr_storage.at(0)->type = expr_storage.at(0)->children.expr_storage.at(0)t(1)->type;
+				return expr_storage.at(0);
+			}
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "expr_storage.at(0)MP"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(1)->type == ""){
+				exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(1));
+				return expr_storage.at(0);
+			}
+			else if (expr_storage.at(0)->children.expr_storage.at(0)t(1)->type == "int"){
+				expr_storage.at(0)->type = "int*";
+				return expr_storage.at(0);
+			}
+			else {
+				if (errormsg == ""){
+					errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+					errorcheck = true;
+				}
+			}
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "STexpr_storage.at(0)R"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(1)->type == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(1) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(1));
+				return expr_storage.at(0);
+			}
+			else if (expr_storage.at(0)->children.expr_storage.at(0)t(1)->type == "int*"){
+				expr_storage.at(0)->type = "int";
+				return expr_storage.at(0);
+			}
+			else {
+				if (errormsg == ""){
+					errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+					errorcheck = true;
+				}
+			}
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "NEW"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(4)->type == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(4) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(4));
+				return expr_storage.at(0);
+			}
+			else if (expr_storage.at(0)->children.expr_storage.at(0)t(4)->type == "int"){
+				expr_storage.at(0)->type = "int*";
+				return expr_storage.at(0);
+			}
+			else {
+				if (errormsg == ""){
+					errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+					errorcheck = true;
+				}
+			}
+		}
+		else{
+			if (errormsg == ""){
+				errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+				errorcheck = true;
+			}
+		}
+	}
+	else if ( expr_storage.at(0)->tokens.expr_storage.at(0)t(0) == "lvexpr_storage.at(0)lue"){
+		if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "ID"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(0));
+				return expr_storage.at(0);
+			}
+			else {
+				expr_storage.at(0)->type = expr_storage.at(0)->children.expr_storage.at(0)t(0)->type;
+				return expr_storage.at(0);
+			}
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "LPexpr_storage.at(0)REN"){
+			if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(0));
+				return expr_storage.at(0);
+			}
+			else {
+				expr_storage.at(0)->type = expr_storage.at(0)->children.expr_storage.at(0)t(0)->type;
+				return expr_storage.at(0);
+			}
+		}
+		else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "STexpr_storage.at(0)R"){
+			if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(0));
+				return expr_storage.at(0);
+			}
+			else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "int*"){
+				expr_storage.at(0)->type = "int";
+				return expr_storage.at(0);
+			}
+			else{
+				if (errormsg == ""){
+					errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+					errorcheck = true;
+				}
+			}
+		}
+	}
+	else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(0) == "term"){
+		if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "fexpr_storage.at(0)ctor"){
+			if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == ""){
+				expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck(expr_storage.at(0)->children.expr_storage.at(0)t(0));
+				return expr_storage.at(0);
+			}
+			else if (expr_storage.at(0)->tokens.expr_storage.at(0)t(1) == "term"){
+				if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int"){
+					expr_storage.at(0)->type = "int";
+					return expr_storage.at(0);
+				}
+				else {
+					expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(0));
+					expr_storage.at(0)->children.expr_storage.at(0)t(2) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(2));
+					return expr_storage.at(0);
+				}
+			}
+		}
+	}
+	else if ( expr_storage.at(0)->rule == "expr expr PLUS term"){
+		cout << "right trexpr_storage.at(0)ck" << endl;
+		if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int"){
+			expr_storage.at(0)->type = "int";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int*" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int"){
+			expr_storage.at(0)->type = "int*";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int*"){
+			expr_storage.at(0)->type = "int*";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == ""){
+			expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck(expr_storage.at(0)->children.expr_storage.at(0)t(0));
+			expr_storage.at(0)->children.expr_storage.at(0)t(2) = exprcheck(expr_storage.at(0)->children.expr_storage.at(0)t(2));
+			return expr_storage.at(0);
+		}
+		else {
+			if (errormsg == ""){
+				errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+				errorcheck = true;
+			}
+		}
+	}
+	else if ( expr_storage.at(0)->rule == "expr expr MINUS term"){
+		if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int"){
+			expr_storage.at(0)->type = "int";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int*" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int"){
+			expr_storage.at(0)->type = "int*";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == "int*" && expr_storage.at(0)->children.expr_storage.at(0)t(2)->type == "int*"){
+			expr_storage.at(0)->type = "int";
+			return expr_storage.at(0);
+		}
+		else if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == ""){
+			expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck(expr_storage.at(0)->children.expr_storage.at(0)t(0));
+			expr_storage.at(0)->children.expr_storage.at(0)t(2) = exprcheck(expr_storage.at(0)->children.expr_storage.at(0)t(2));
+			return expr_storage.at(0);
+		}
+		else{
+			if (errormsg == ""){
+				errormsg = "ERROR: semexpr_storage.at(0)ntic error in expressions";
+				errorcheck = true;
+			}
+		}
+	}
+	else if ( expr_storage.at(0)->rule == "expr term"){
+		cout << "right trexpr_storage.at(0)ck 2" << endl;
+		if (expr_storage.at(0)->children.expr_storage.at(0)t(0)->type == ""){
+			expr_storage.at(0)->children.expr_storage.at(0)t(0) = exprcheck (expr_storage.at(0)->children.expr_storage.at(0)t(0));
+			return expr_storage.at(0);
+		}
+		else {
+			expr_storage.at(0)->type = expr_storage.at(0)->children.expr_storage.at(0)t(0)->type;
+			return expr_storage.at(0);
+		}
+	}
+	return expr_storage.at(0);
+}
